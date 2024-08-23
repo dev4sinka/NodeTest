@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 
 // Middleware to log request info
@@ -9,18 +10,13 @@ app.use((req, res, next) => {
     console.log(`Headers: ${JSON.stringify(req.headers)}`);
     console.log(`Body: ${JSON.stringify(req.body)}`);
 
-    // Return the same info in the response
-    res.json({
-        method: req.method,
-        url: req.url,
-        headers: req.headers,
-        body: req.body
-    });
+    // Pass control to the next middleware or route
+    next();
 });
 
-// Example route
+// Route to serve the image
 app.get('/', (req, res) => {
-    res.send('Hello, World!');
+    res.sendFile(path.join(__dirname, 'aws.jpeg'));
 });
 
 // Start the server
