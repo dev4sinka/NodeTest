@@ -14,8 +14,8 @@ app.use((req, res, next) => {
     next();
 });
 
-// Middleware to handle all routes and return the image
-app.use((req, res) => {
+// Route to serve the image for any path starting with /aws.jpeg
+app.get('/aws.jpeg/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'aws.jpeg'));
 });
 
